@@ -82,7 +82,7 @@ ul {
 }
 
 .login.page .title, .login.page .usernameInput {
-  color: #fff;
+  color: #000;
   font-weight: 100;
 }
 
@@ -114,6 +114,7 @@ ul {
 .chatArea {
   height: 100%;
   padding-bottom: 60px;
+  background-color: #000
 }
 
 .messages {
@@ -121,6 +122,7 @@ ul {
   margin: 0;
   overflow-y: scroll;
   padding: 10px 20px 10px 20px;
+  color: #fff
 }
 
 .message.typing .messageBody {
@@ -137,7 +139,7 @@ ul {
 /* Input */
 
 .inputMessage {
-  border: 10px solid #000;
+  border: 1px solid #00ff00;
   bottom: 0;
   height: 60px;
   left: 0;
@@ -146,4 +148,7 @@ ul {
   position: absolute;
   right: 0;
   width: 100%;
+  background-color: #000;
+  color: #fff;
 }
+
