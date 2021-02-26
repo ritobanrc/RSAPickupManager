@@ -2,7 +2,7 @@
 
 A simple chat demo for socket.io
 
-## How to use
+## How to use. :)
 
 ```
 $ npm ci
