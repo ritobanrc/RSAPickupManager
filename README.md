@@ -21,4 +21,4 @@ on website load.
 the chatroom.
 
 
-Riverside STEMdev
+Riverside STEMdev Team
