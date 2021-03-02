@@ -77,12 +77,13 @@ ul {
 }
 
 .login.page .usernameInput {
+  color: #fff;
   font-size: 200%;
   letter-spacing: 3px;
 }
 
 .login.page .title, .login.page .usernameInput {
-  color: #000;
+  color: #fff;
   font-weight: 100;
 }
 
