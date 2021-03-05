@@ -8,6 +8,7 @@
   "license": "BSD",
   "dependencies": {
     "express": "~4.17.1",
+    "node-quirc": "^2.3.0",
     "socket.io": "~2.3.0"
   },
   "scripts": {
