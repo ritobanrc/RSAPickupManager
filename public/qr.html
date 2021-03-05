@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pickup Manager </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <video autoplay></video>
+  <canvas class="d-none"></canvas>
+
+    <div class="video-options">
+        <select name="" id="" class="custom-select">
+            <option value="">Select camera</option>
+        </select>
+    </div>
+
+  <div class="controls">
+      <button class="btn btn-danger play" title="Play">Begin Recording</button>
+      <button class="btn btn-info pause d-none" title="Pause">Pause</button>
+      <button class="btn btn-outline-success screenshot d-none" title="ScreenShot">Take Picture</button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main.js"></script>
+  <script src="/camera.js"></script>
+</body>
+</html>
