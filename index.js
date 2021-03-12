@@ -7,7 +7,13 @@ var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
 var allMessages = [];
-
+var classData = [];
+//file reading
+const fs = require('fs');
+const neatCsv = require('neat-csv');
+const { parse } = require('path');
+//var Teacherid = "";(Teacherid ==="") ? "hot":"cool";
+const filePath = path.join(__dirname, 'Teacher.csv');
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
@@ -34,16 +40,34 @@ io.on('connection', (socket) => {
 
   // when the client emits 'add user', this listens and executes
   socket.on('add user', (username) => {
+    console.log("--------------")
+    console.log(username);//username
+    fs.readFile(filePath, async (error, data) => {
+      if (error) {
+        return console.log('error reading file');
+      }
+      const parsedData = await neatCsv(data);
+      for (a = 0; a < parsedData.length; a++) { 
+        classData.push((JSON.stringify(parsedData[a])).replace(/[{}"]/g,''));
+      }
+      //console.log(parsedData);
+      console.log(classData)
+    });
+    // socket.emit('login', {
+    //   numUsers: numUsers,
+    //   allMessages: parsedData
+    // });
     if (addedUser) return;
-
     // we store the username in the socket session for this client
     socket.username = username;
     ++numUsers;
     addedUser = true;
+
     socket.emit('login', {
       numUsers: numUsers,
-      allMessages: allMessages,
+      allMessages: classData,
     });
+    
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
       username: socket.username,
