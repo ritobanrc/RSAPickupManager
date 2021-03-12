@@ -14,9 +14,21 @@ const neatCsv = require('neat-csv');
 const { parse } = require('path');
 //var Teacherid = "";(Teacherid ==="") ? "hot":"cool";
 const filePath = path.join(__dirname, 'Teacher.csv');
+const msFilePath = path.join(__dirname, 'middleSchool.csv');
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
+
+fs.readFile(msFilePath, async (error, data) => {
+  if (error) {
+    return console.log('error reading file');
+  }
+  const parsedData = await neatCsv(data);
+  for (var a = 0; a < parsedData.length; a++) { 
+    classData.push((JSON.stringify(parsedData[a])).replace(/[{}"]/g,''));
+  }
+});
+
 
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,22 +53,8 @@ io.on('connection', (socket) => {
   // when the client emits 'add user', this listens and executes
   socket.on('add user', (username) => {
     console.log("--------------")
-    console.log(username);//username
-    fs.readFile(filePath, async (error, data) => {
-      if (error) {
-        return console.log('error reading file');
-      }
-      const parsedData = await neatCsv(data);
-      for (var a = 0; a < parsedData.length; a++) { 
-        classData.push((JSON.stringify(parsedData[a])).replace(/[{}"]/g,''));
-      }
-      //console.log(parsedData);
-      console.log(classData)
-    });
-    // socket.emit('login', {
-    //   numUsers: numUsers,
-    //   allMessages: parsedData
-    // });
+    console.log(classData)
+    
     if (addedUser) return;
     // we store the username in the socket session for this client
     socket.username = username;
