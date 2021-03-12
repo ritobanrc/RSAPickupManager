@@ -235,8 +235,8 @@ $(function() {
       prepend: true
     });
     addParticipantsMessage(data);
-    console.log(allMessages); 
     addChatMessage('user', allMessages);
+    console.log(data.classData);
   });
 
   // Whenever the server emits 'new message', update the chat body

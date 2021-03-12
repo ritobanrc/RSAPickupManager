@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
         return console.log('error reading file');
       }
       const parsedData = await neatCsv(data);
-      for (a = 0; a < parsedData.length; a++) { 
+      for (var a = 0; a < parsedData.length; a++) { 
         classData.push((JSON.stringify(parsedData[a])).replace(/[{}"]/g,''));
       }
       //console.log(parsedData);
@@ -65,7 +65,8 @@ io.on('connection', (socket) => {
 
     socket.emit('login', {
       numUsers: numUsers,
-      allMessages: classData,
+      allMessages: allMessages,
+      classData: classData
     });
     
     // echo globally (all clients) that a person has connected
