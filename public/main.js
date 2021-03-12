@@ -231,6 +231,13 @@ socket.on('login', (data) => {
     log(message, {
         prepend: true
     });
+
+    console.log(data.allMessages);
+    for (var msg of data.allMessages ) {
+        addChatMessage(msg);
+    }
+
+
     addParticipantsMessage(data);
 });
 
@@ -242,11 +249,6 @@ socket.on('new message', (data) => {
 // Whenever the server emits 'user joined', log it in the chat body
 socket.on('user joined', (data) => {
     log(data.username + ' joined');
-
-    console.log(data.allMessages);
-    for ( var msg of data.allMessages ) {
-        addChatMessage(msg);
-    }
 
     addParticipantsMessage(data);
 });
