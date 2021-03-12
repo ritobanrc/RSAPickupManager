@@ -60,17 +60,10 @@ $(function() {
     if (message && connected) {
       $inputMessage.val('');
       //check if username is a teacher, and message is show class number
-      if ((username == "Teacher") && (message == "show_class#")){
-        addChatMessage({
-          username: username,
-          message: 'hello'
-        });   
-      }else{
-        addChatMessage({
-          username: username,
-          message: message
-        });
-      }
+      addChatMessage({
+        username: username,
+        message: message
+      });
       // tell server to execute 'new message' and send along one parameter
       socket.emit('new message', message);
     }
