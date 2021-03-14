@@ -92,21 +92,19 @@ io.on('connection', (socket) => {
         console.log("student arrived recieved");
         let buffer = Buffer.from(img.split(',')[1], 'base64');
 
-        quirc.decode(buffer, (err, codes) => {
-            if (err) {
-                // handle err.
-                console.error(`decode failed: ${err.message}`);
-            } else {
-                // do something with codes.
-                let name = codes[0].data.toString('utf8');
-                console.log(name);
-                let message = {
-                    username: "Student Arrived",
-                    message: name,
-                };
-                allMessages.push(message);
-                socket.broadcast.emit('new message', message);
-            }
+        quirc.decode(buffer).then((codes) => {
+            // do something with codes.
+            console.log(codes);
+            let name = codes[0].data.toString('utf8');
+            console.log(name);
+            let message = {
+                username: "Student Arrived",
+                message: name,
+            };
+            allMessages.push(message);
+            socket.broadcast.emit('new message', message);
+        }).catch((err) => {
+            console.error(`decode failed: ${err.message}`);
         });
     })
 
