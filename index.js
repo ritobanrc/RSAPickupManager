@@ -25,7 +25,11 @@ io.on('connection', (socket) => {
 
     // when the client emits 'new message', this listens and executes
     socket.on('new message', (data) => {
-        allMessages.push(data)
+        allMessages.push({
+            username: socket.username,
+            message: data,
+        })
+
         // we tell the client to execute 'new message'
         socket.broadcast.emit('new message', {
             username: socket.username,
@@ -43,12 +47,12 @@ io.on('connection', (socket) => {
         addedUser = true;
         socket.emit('login', {
             numUsers: numUsers,
+            allMessages: allMessages,
         });
         // echo globally (all clients) that a person has connected
         socket.broadcast.emit('user joined', {
             username: socket.username,
             numUsers: numUsers,
-            allMessages: allMessages,
         });
     });
 
@@ -78,10 +82,12 @@ io.on('connection', (socket) => {
                 // do something with codes.
                 let name = codes[0].data.toString('utf8');
                 console.log(name);
-                socket.broadcast.emit('new message', {
+                let message = {
                     username: "Student Arrived",
                     message: name,
-                });
+                };
+                allMessages.push(message);
+                socket.broadcast.emit('new message', message);
             }
         });
     })
