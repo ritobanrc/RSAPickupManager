@@ -1,3 +1,5 @@
+//import Set from "core-js-pure/features/set";
+
 // Setup basic express server
 var express = require('express');
 var app = express();
@@ -8,28 +10,34 @@ var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
 var allMessages = [];
-var classData = [];
 //file reading
 const fs = require('fs');
 const neatCsv = require('neat-csv');
 const { parse } = require('path');
-//var Teacherid = "";(Teacherid ==="") ? "hot":"cool";
-const filePath = path.join(__dirname, 'Teacher.csv');
-const msFilePath = path.join(__dirname, 'middleSchool.csv');
+
+const msFilePath = path.join(__dirname, 'middle_school.csv');
 server.listen(port, () => {
     console.log('Server listening at port %d', port);
 });
 
+
+let classData = {
+    'grade5': [],
+    'grade6': [],
+    'grade7': [],
+    'grade8': [],
+};
+
 fs.readFile(msFilePath, async (error, data) => {
   if (error) {
-    return console.log('error reading file');
+    return console.log('error reading middle school roster');
   }
   const parsedData = await neatCsv(data);
-  for (var a = 0; a < parsedData.length; a++) { 
-    classData.push((JSON.stringify(parsedData[a])).replace(/[{}"]/g,''));
+
+  for (let student of parsedData) {
+      classData['grade' + student['Grade']].push(student['First Name'] + ' ' + student['Last Name']);
   }
 });
-
 
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
@@ -65,7 +73,7 @@ io.on('connection', (socket) => {
         socket.emit('login', {
             numUsers: numUsers,
             allMessages: allMessages,
-            classData: classData
+            classData: classData[username],
         });
         // echo globally (all clients) that a person has connected
         socket.broadcast.emit('user joined', {
@@ -94,7 +102,6 @@ io.on('connection', (socket) => {
 
         quirc.decode(buffer).then((codes) => {
             // do something with codes.
-            console.log(codes);
             let name = codes[0].data.toString('utf8');
             console.log(name);
             let message = {
@@ -103,6 +110,8 @@ io.on('connection', (socket) => {
             };
             allMessages.push(message);
             socket.broadcast.emit('new message', message);
+
+            socket.emit('qr read', name);
         }).catch((err) => {
             console.error(`decode failed: ${err.message}`);
         });

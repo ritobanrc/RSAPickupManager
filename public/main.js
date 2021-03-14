@@ -22,6 +22,8 @@ var typing = false;
 var lastTypingTime;
 var $currentInput = $usernameInput.focus();
 
+var classData = null;
+
 var socket = io();
 
 const addParticipantsMessage = (data) => {
@@ -82,6 +84,13 @@ const addChatMessage = (data, options) => {
     if ($typingMessages.length !== 0) {
         options.fade = false;
         $typingMessages.remove();
+    }
+
+
+    if (classData && data.username === 'Student Arrived') {
+        if (!classData.includes(data.message)) {
+            return;
+        }
     }
 
     var $usernameDiv = $('<span class="username"/>')
@@ -233,11 +242,11 @@ socket.on('login', (data) => {
         prepend: true
     });
 
-    console.log(data.allMessages);
     for (var msg of data.allMessages ) {
         addChatMessage(msg);
     }
 
+    classData = data.classData;
 
     addParticipantsMessage(data);
 });
@@ -286,4 +295,8 @@ socket.on('reconnect_error', () => {
     log('attempt to reconnect has failed');
 });
 
-
+socket.on('qr read', (name) => {
+    console.log(name);
+    document.getElementById("studentName").innerHTML = name;
+    studentName.innerHTML = name;
+})
