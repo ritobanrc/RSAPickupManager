@@ -259,8 +259,8 @@ video {
 }
 
 .controls > button {
-  width: 45px;
-  height: 45px;
+  width: 1.5cm;
+  height: 1.5cm;
   text-align: center;
   border-radius: 100%;
   margin: 0 6px;
@@ -279,7 +279,7 @@ video {
     left: 50%;
     top: 50%; 
     width: 50%;
-    height: 30%;
+    height: auto;
     margin-left: -25%;
     margin-top: -5%;
 
