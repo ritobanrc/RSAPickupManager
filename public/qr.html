@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Pickup Manager </title>
   <link rel="stylesheet" href="style.css">
+
+
+
+  <script src="https://use.fontawesome.com/b1d35ffe7b.js"></script>
 </head>
 <body>
   <video autoplay></video>
@@ -15,17 +19,18 @@
       </select>
   </div>
 
-
-  <div>
-    <p> Student Name: </p>
-    <p id="studentName"></p>
+  <div class="dialog hide">
+    <p id="dialogLine1"> Calling student </p>
+    <p id="studentName">Student Name</p>
   </div>
 
-
   <div class="controls">
-      <button class="btn btn-danger play" title="Play">Begin Recording</button>
-      <button class="btn btn-info pause d-none" title="Pause">Pause</button>
-      <button class="btn btn-outline-success screenshot d-none" title="ScreenShot">Take Picture</button>
+      <button class="play" title="Play">
+          <i class="fa fa-video-camera"></i>
+      </button>
+      <button class="btn btn-outline-success screenshot hide" title="ScreenShot">
+          <i class="fa fa-photo"></i>
+      </button>
   </div>
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>

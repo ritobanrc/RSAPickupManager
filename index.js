@@ -114,6 +114,8 @@ io.on('connection', (socket) => {
             socket.emit('qr read', name);
         }).catch((err) => {
             console.error(`decode failed: ${err.message}`);
+
+            socket.emit('qr failed')
         });
     })
 

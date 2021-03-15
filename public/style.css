@@ -32,8 +32,8 @@ ul {
 }
 
 video {
-  //margin: 5% auto;
   width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.2);
 }
 
@@ -175,7 +175,7 @@ video {
   background: white;
 }
 
-.display-cover {
+.dislay-cover {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,10 +198,10 @@ video {
 
 .controls {
   position: absolute;
-  right: 20px;
-  top: 20px;
-  display: flex;
+  left: 50%;
+  bottom: 20px;
 
+  margin-left: auto;
 }
 
 .controls > button {
@@ -210,48 +210,43 @@ video {
   text-align: center;
   border-radius: 100%;
   margin: 0 6px;
-  background: transparent;
 
-  &:hover {
-    svg {
-      color: white !important;
-    }
-  }
+  /*&:hover {*/
+    /*svg {*/
+      /*color: white !important;*/
+    /*}*/
+  /*}*/
 }
 
 
-@media (min-width: 300px) and (max-width: 400px) {
-  .controls {
-    flex-direction: column;
+/*@media (min-width: 300px) and (max-width: 400px) {*/
+  /*.controls {*/
+    /*flex-direction: column;*/
 
-    button {
-      margin: 5px 0 !important;
-    }
-  }
-}
+    /*button {*/
+      /*margin: 5px 0 !important;*/
+    /*}*/
+  /*}*/
+/*}*/
 
-.controls > button > svg {
-  height: 20px;
-  width: 18px;
-  text-align: center;
-  margin: 0 auto;
-  padding: 0;
-}
+/*.controls > button > svg {*/
+  /*height: 20px;*/
+  /*width: 18px;*/
+  /*text-align: center;*/
+  /*margin: 0 auto;*/
+  /*padding: 0;*/
+/*}*/
 
 .controls button:nth-child(1) {
-  border: 2px solid #D2002E;
-
-  svg {
-    color: #D2002E;
-
-  }
+  background-color: #D2002E;
+  color: white;
 }
 
 .controls button:nth-child(2) {
-  border: 2px solid #008496;
+  background-color: #008496;
+  color: white;
 
   svg {
-    color: #008496;
   }
 }
 
@@ -269,15 +264,29 @@ video {
   text-align: center;
   border-radius: 100%;
   margin: 0 6px;
-  background: transparent;
-
-  &:hover {
-    svg {
-      color: white;
-    }
-  }
+  /*background: transparent;*/
 }
 
 .hide {
     display: none;
+}
+
+.dialog {
+    position: absolute;
+    margin: 0 auto;
+    font-size: 2em;
+    text-align: center;
+    left: 50%;
+    top: 50%; 
+    width: 50%;
+    height: 30%;
+    margin-left: -25%;
+    margin-top: -5%;
+
+    background-color: #FFFFFF80;
+}
+
+#studentName {
+    color: #22B541;
+    font-weight: bold;
 }

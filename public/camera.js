@@ -6,7 +6,7 @@ const screenshotImage = document.querySelector('img');
 const buttons = [...controls.querySelectorAll('button')];
 let streamStarted = false;
 
-const [play, pause, screenshot] = buttons;
+const [play, screenshot] = buttons;
 console.log(cameraOptions);
 
 const constraints = {
@@ -50,7 +50,6 @@ const doScreenshot = () => {
   }
 };
 
-pause.onclick = pauseStream;
 screenshot.onclick = doScreenshot;
 
 const startStream = async (constraints) => {
@@ -61,10 +60,8 @@ const startStream = async (constraints) => {
 
 const handleStream = (stream) => {
   video.srcObject = stream;
-  play.classList.add('d-none');
-  pause.classList.remove('d-none');
-  screenshot.classList.remove('d-none');
-
+  play.classList.add('hide');
+  screenshot.classList.remove('hide');
 };
 
 

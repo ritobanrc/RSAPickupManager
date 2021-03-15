@@ -90,6 +90,8 @@ const addChatMessage = (data, options) => {
     if (classData && data.username === 'Student Arrived') {
         if (!classData.includes(data.message)) {
             return;
+        } else {
+            socket.emit('student accepted', username);
         }
     }
 
@@ -128,6 +130,9 @@ const removeChatTyping = (data) => {
 // options.prepend - If the element should prepend
 //   all other messages (default = false)
 const addMessageElement = (el, options) => {
+    if (!$messages) {
+        return;
+    }
     var $el = $(el);
 
     // Setup default options
@@ -295,8 +300,24 @@ socket.on('reconnect_error', () => {
     log('attempt to reconnect has failed');
 });
 
+const showDialog = (operation, studentName) => {
+    let studentNameElem = document.getElementById("studentName");
+    studentNameElem.innerHTML = studentName;
+    studentNameElem.parentNode.classList.remove('hide');
+
+    let dialogLine1 = document.getElementById("dialogLine1");
+    dialogLine1.innerHTML = operation;
+
+    setTimeout(() => {
+        studentNameElem.parentNode.classList.add('hide')
+    }, 2000);
+}
+
 socket.on('qr read', (name) => {
     console.log(name);
-    document.getElementById("studentName").innerHTML = name;
-    studentName.innerHTML = name;
+    showDialog("Calling student", name);
+})
+
+socket.on('qr failed', () => {
+    showDialog("Failed to read QR Code", "");
 })
