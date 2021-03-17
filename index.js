@@ -22,10 +22,10 @@ server.listen(port, () => {
 
 
 let classData = {
-    'grade5': [],
-    'grade6': [],
-    'grade7': [],
-    'grade8': [],
+    '5': [],
+    '6': [],
+    '7': [],
+    '8': [],
 };
 
 fs.readFile(msFilePath, async (error, data) => {
