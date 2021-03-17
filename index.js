@@ -35,7 +35,7 @@ fs.readFile(msFilePath, async (error, data) => {
   const parsedData = await neatCsv(data);
 
   for (let student of parsedData) {
-      classData['grade' + student['Grade']].push(student['First Name'] + ' ' + student['Last Name']);
+      classData[student['Grade']].push(student['First Name'] + ' ' + student['Last Name']);
   }
 });
 

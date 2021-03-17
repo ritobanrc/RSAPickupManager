@@ -259,7 +259,7 @@ video {
 .dialog {
     position: absolute;
     margin: 0 auto;
-    font-size: 2em;
+    font-size: 4em;
     text-align: center;
     left: 50%;
     top: 50%; 
