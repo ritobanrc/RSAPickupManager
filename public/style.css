@@ -204,21 +204,6 @@ video {
   margin-left: auto;
 }
 
-.controls > button {
-  width: 45px;
-  height: 45px;
-  text-align: center;
-  border-radius: 100%;
-  margin: 0 6px;
-
-  /*&:hover {*/
-    /*svg {*/
-      /*color: white !important;*/
-    /*}*/
-  /*}*/
-}
-
-
 /*@media (min-width: 300px) and (max-width: 400px) {*/
   /*.controls {*/
     /*flex-direction: column;*/
