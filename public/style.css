@@ -259,8 +259,8 @@ video {
 }
 
 .controls > button {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   text-align: center;
   border-radius: 100%;
   margin: 0 6px;
