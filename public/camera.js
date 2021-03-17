@@ -44,6 +44,9 @@ const doScreenshot = () => {
   //screenshotImage.src = canvas.toDataURL('image/webp');
   //screenshotImage.classList.remove('d-none');
 
+  $('.lds-dual-ring')[0].classList.remove('hide');
+
+
   if (socket) {
       console.log("Sending student arrived");
       socket.emit('student arrived', canvas.toDataURL());

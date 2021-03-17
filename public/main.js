@@ -87,7 +87,9 @@ const addChatMessage = (data, options) => {
     }
 
 
+    console.log(classData);
     if (classData && data.username === 'Student Arrived') {
+        console.log(data);
         if (!classData.includes(data.message)) {
             return;
         } else {
@@ -247,11 +249,11 @@ socket.on('login', (data) => {
         prepend: true
     });
 
+    classData = data.classData;
     for (var msg of data.allMessages ) {
         addChatMessage(msg);
     }
 
-    classData = data.classData;
 
     addParticipantsMessage(data);
 });
@@ -301,6 +303,7 @@ socket.on('reconnect_error', () => {
 });
 
 const showDialog = (operation, studentName) => {
+    $('.lds-dual-ring')[0].classList.add('hide');
     let studentNameElem = document.getElementById("studentName");
     studentNameElem.innerHTML = studentName;
     studentNameElem.parentNode.classList.remove('hide');
