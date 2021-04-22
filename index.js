@@ -119,6 +119,16 @@ io.on('connection', (socket) => {
         });
     })
 
+    socket.on('student arrived manual', (data) => {
+        let message = {
+            username: "Student Arrived",
+            message: data,
+        };
+
+        console.log("Sending student", data);
+        socket.broadcast.emit('new message', message)
+    })
+
     // when the user disconnects.. perform this
     socket.on('disconnect', () => {
         if (addedUser) {

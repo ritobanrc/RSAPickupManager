@@ -26,16 +26,6 @@ var classData = null;
 
 var socket = io();
 
-const addParticipantsMessage = (data) => {
-    var message = '';
-    if (data.numUsers === 1) {
-        message += "there's 1 participant";
-    } else {
-        message += "there are " + data.numUsers + " participants";
-    }
-    log(message);
-}
-
 // Sets the client's username
 const setUsername = () => {
     username = cleanInput($usernameInput.val().trim());
@@ -76,6 +66,13 @@ const log = (message, options) => {
     addMessageElement($el, options);
 }
 
+const gradeColors = {
+    "orange": 5,
+    "blue": 6,
+    "green": 7,
+    "white": 8,
+}
+
 // Adds the visual chat message to the message list
 const addChatMessage = (data, options) => {
     // Don't fade the message in if there is an 'X was typing'
@@ -87,29 +84,40 @@ const addChatMessage = (data, options) => {
     }
 
 
-    console.log(classData);
     if (classData && data.username === 'Student Arrived') {
         console.log(data);
-        if (!classData.includes(data.message)) {
-            return;
+        if (typeof data == "string") {
+            if (classData.includes(data.message)) {
+                var $usernameDiv = $('<span class="username"/>')
+                    .text(data.username)
+                    .css('color', getUsernameColor(data.username));
+                var $messageBodyDiv = $('<span class="messageBody">')
+                    .text(data.message);
+
+                var $messageDiv = $('<li class="message"/>')
+                    .data('username', data.username)
+                    .append($usernameDiv, $messageBodyDiv);
+
+                addMessageElement($messageDiv, options);
+                socket.emit('student accepted', username);
+            }
         } else {
-            socket.emit('student accepted', username);
+            if (data.message.grade in gradeColors && gradeColors[data.message.grade] == username) {
+                var $usernameDiv = $('<span class="username"/>')
+                    .text(data.username)
+                    .css('color', getUsernameColor(data.username));
+                var $messageBodyDiv = $('<span class="messageBody">')
+                    .text(data.message.number);
+
+                var $messageDiv = $('<li class="message"/>')
+                    .data('username', data.username)
+                    .append($usernameDiv, $messageBodyDiv);
+
+                addMessageElement($messageDiv, options);
+                socket.emit('student accepted', username);
+            }
         }
     }
-
-    var $usernameDiv = $('<span class="username"/>')
-        .text(data.username)
-        .css('color', getUsernameColor(data.username));
-    var $messageBodyDiv = $('<span class="messageBody">')
-        .text(data.message);
-
-    var typingClass = data.typing ? 'typing' : '';
-    var $messageDiv = $('<li class="message"/>')
-        .data('username', data.username)
-        .addClass(typingClass)
-        .append($usernameDiv, $messageBodyDiv);
-
-    addMessageElement($messageDiv, options);
 }
 
 // Adds the visual chat typing message
@@ -244,10 +252,6 @@ $inputMessage.click(() => {
 socket.on('login', (data) => {
     connected = true;
     // Display the welcome message
-    var message = "Welcome to Socket.IO Chat – ";
-    log(message, {
-        prepend: true
-    });
 
     classData = data.classData;
     for (var msg of data.allMessages ) {
@@ -260,39 +264,35 @@ socket.on('login', (data) => {
 
 // Whenever the server emits 'new message', update the chat body
 socket.on('new message', (data) => {
+    console.log(data);
     addChatMessage(data);
 });
 
 // Whenever the server emits 'user joined', log it in the chat body
-socket.on('user joined', (data) => {
-    log(data.username + ' joined');
+//socket.on('user joined', (data) => {
+    //log(data.username + ' joined');
 
-    addParticipantsMessage(data);
-});
+    //addParticipantsMessage(data);
+//});
 
 // Whenever the server emits 'user left', log it in the chat body
-socket.on('user left', (data) => {
-    log(data.username + ' left');
-    addParticipantsMessage(data);
-    removeChatTyping(data);
-});
+//socket.on('user left', (data) => {
+    //log(data.username + ' left');
+    //addParticipantsMessage(data);
+    //removeChatTyping(data);
+//});
 
 // Whenever the server emits 'typing', show the typing message
-socket.on('typing', (data) => {
-    addChatTyping(data);
-});
+//socket.on('typing', (data) => {
+    //addChatTyping(data);
+//});
 
 // Whenever the server emits 'stop typing', kill the typing message
-socket.on('stop typing', (data) => {
-    removeChatTyping(data);
-});
-
-socket.on('disconnect', () => {
-    log('you have been disconnected');
-});
+//socket.on('stop typing', (data) => {
+    //removeChatTyping(data);
+//});
 
 socket.on('reconnect', () => {
-    log('you have been reconnected');
     if (username) {
         socket.emit('add user', username);
     }
@@ -324,3 +324,17 @@ socket.on('qr read', (name) => {
 socket.on('qr failed', () => {
     showDialog("Failed to read QR Code", "");
 })
+
+const manualSubmit = (form) => {
+    console.log(form);
+    console.log(form["color"].value)
+    console.log(form["number"].value)
+
+    socket.emit('student arrived manual', {
+        grade: form["color"].value,
+        number: form["number"].value,
+    });
+
+    form.reset()
+    return true;
+}

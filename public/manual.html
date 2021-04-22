@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>RSA Pickup Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form class="center" action="javascript:;" onSubmit="return manualSubmit(this)">
+      <input type="radio" id="orange" name="color" value="orange">
+      <label for="orange" style="color:orange">Orange</label><br>
+
+      <input type="radio" id="blue" name="color" value="blue">
+      <label for="blue" style="color:blue">Blue</label><br>
+
+      <input type="radio" id="green" name="color" value="green">
+      <label for="green" style="color:green">Green</label><br>
+
+      <input type="radio" id="white" name="color" value="white">
+      <label for="white" style="color:white">White</label><br><br>
+
+      <input type="number" id="number" name="number"><br>
+
+      <input type="submit" value="Submit"><br>
+    </form>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main.js"></script>
+
+
+</body>
