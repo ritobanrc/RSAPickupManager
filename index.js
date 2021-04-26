@@ -124,6 +124,7 @@ io.on('connection', (socket) => {
             username: "Student Arrived",
             message: data,
         };
+        allMessages.push(message);
 
         console.log("Sending student", data);
         socket.broadcast.emit('new message', message)

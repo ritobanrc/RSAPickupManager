@@ -326,9 +326,10 @@ socket.on('qr failed', () => {
 })
 
 const manualSubmit = (form) => {
-    console.log(form);
-    console.log(form["color"].value)
-    console.log(form["number"].value)
+    if (form["color"].value === "") {
+        alert("Please select a color!")
+        return false;
+    }
 
     socket.emit('student arrived manual', {
         grade: form["color"].value,
