@@ -130,6 +130,11 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('new message', message)
     })
 
+    socket.on('clear all messages', () => {
+        console.log("clearing all students");
+        allMessages = []
+    })
+
     // when the user disconnects.. perform this
     socket.on('disconnect', () => {
         if (addedUser) {

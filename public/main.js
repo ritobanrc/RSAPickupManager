@@ -339,3 +339,12 @@ const manualSubmit = (form) => {
     form.reset()
     return true;
 }
+
+const clearAllMessages = () => {
+    const confirmed = window.confirm("Are you sure you want to clear all students?");
+    if (confirmed) {
+        socket.emit('clear all messages');
+    } else {
+        return;
+    }
+}
